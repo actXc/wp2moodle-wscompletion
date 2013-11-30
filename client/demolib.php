@@ -1,4 +1,6 @@
 <?php
+
+// encryption used by wp2moodle
 function encrypt_string($value, $key) { 
 	if (!$value) {return "";}
 	$text = $value;
@@ -36,4 +38,14 @@ function html_show_array($array){
 
   echo "</tbody>";
   echo "</table>\n";
+}
+
+
+//
+//	like echo except with print_r to show variables
+//
+function doEcho($label, $message) {
+	echo $label . "\n";
+	print_r($message);
+	echo "\n\n";
 }
