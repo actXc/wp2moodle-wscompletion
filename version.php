@@ -19,7 +19,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version  = 2013050703;
+$plugin->version  = 2013113001;
 $plugin->requires = 2010112400;  // Requires this Moodle version - at least 2.0
 $plugin->cron     = 0;
 $plugin->release = '1.0 (Build: 2013050703)';

@@ -1,14 +1,17 @@
 wp2moodle ws completion
 =======================
 
-This is a moodle XMLPRC webservice for returning completion data about users who have enrolled using the wp2moodle plugin suite.
+This is a moodle webservice for returning completion data about users who have enrolled using the wp2moodle Single Sign On plugin.
 
 Requirements:
 -------------
-Requires the Certificate plugin for moodle to be installed already, and of course the wp2moodle plugins.
+- Moodle needs to know which protocols your webservice is using. E.g. SOAP, REST or XMLRPC. You have to enable these.
+- You need to add webservice/rest:use or webservice/xmlrpc:use to the role of user that will be connecting. This is generally Authenticated User or Student.
+- Utilises token.php portion of wp2moodle single sign on plugin (https://github.com/frumbert/wp2moodle-moodle).
 
-https://github.com/markn86/moodle-mod_certificate
-https://github.com/frumbert/wp2moodle-moodle
+Optional:
+---------
+If the Moodle Certifiacate plugin has been installed prior to this plugin being installed, it will return the row ids / pickup codes of certificates generated for that plugin. (https://github.com/markn86/moodle-mod_certificate)
 
 Installation
 ------------
@@ -16,19 +19,25 @@ Installation
 1. Download the repository (+unzip) and rename it so its folder is called 'wscompletion'
 2. Put it in your /moodle/local/ folder
 3. Activate the plugin
-4. Make sure web serivices are enabled, XMLRPC is running and enabled
+4. Nothing to configure!
 
 Usage / example
 ---------------
 
-I'm not going to explain to you how to set up and use webservices in moodle (sorry).
+1. Enable moodle web services and the protocol you want to use (e.g. REST), and.
+2. Make sure that webservice/rest:use (or webservice/xmlrpc:use) is allowed for authenticated user / student role
+3. Authenticate a user across from Wordpress to Moodle using the wp2moodle plugin.
+4. Generate tokens for this user (using /auth/wp2moodle/token.php) to allow the account to log in via a webservice
+5. Call the web service as that user from the server that hosts the wp2moodle wordpress.
+6. Process the results in some way to make it nice.
 
-wp2moodle contains a file called token.php which will generate an authentication token for the user. This allows a user access to a specific function call in a web service, which is contained in this plugin.
-
-see the client/demo.php file for a simple page that lets you test the service call, or client/client.php for a coders example on what is going on (yes, read the php!)
+There's a demo script in the ~/local/wscompeltion/client/ folder. You'll need to nose around in these php files, but I've documented them.
+ - demo.php lets you try stuff easily
+ - client.rest.php has an example on how to encode and decode xmlrpc
+ - client.json.php has an example that returns results as JSON (supported by REST in Moodle 2.2+)
 
 License
 -------
 
 "Here you go, have it."
-I think that's the MIT License. Or Public Domain. Pick whatever suits you.
+I think that's the MIT License. Or Public Domain.
